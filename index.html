@@ -1,0 +1,127 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>全屏云动画</title>  
+    <style>  
+        body {  
+            margin: 0;  
+            overflow: hidden;  
+            background: skyblue;  
+            position: relative;  
+            height: 100vh;  
+            cursor: pointer;  
+        }  
+        .cloud {  
+            position: absolute;  
+            animation: moveClouds linear infinite;  
+            opacity: 0.8;  
+            cursor: pointer; /* 使云朵可点击 */  
+        }  
+        .sun {  
+            position: absolute;  
+            top: 5%;  
+            right: 5%;  
+            width: 120px; /* 增加大小以便更好可见 */  
+            height: 120px; /* 增加大小以便更好可见 */  
+            animation: shine 1s infinite; /* 添加闪耀动画 */  
+        }  
+        @keyframes moveClouds {  
+            0% { transform: translateX(-200px); }  
+            100% { transform: translateX(100vw); }  
+        }  
+        @keyframes shine {  
+            0% { filter: brightness(1); }  
+            50% { filter: brightness(1.5); }  
+            100% { filter: brightness(1); }  
+        }  
+        .grass {  
+            position: absolute;  
+            bottom: 0;  
+            width: 100%;  
+            height: 100px;  
+            background: green;  
+        }  
+        .animal {  
+            position: absolute;  
+            bottom: 20px; /* 在草地上方定位 */  
+        }  
+        .cow {  
+            width: 100px;  
+            animation: walkCow 5s linear infinite;  
+        }  
+        @keyframes walkCow {  
+            0% { transform: translateX(0); }  
+            50% { transform: translateX(50vw); }  
+            100% { transform: translateX(-100px); }  
+        }  
+        .sheep {  
+            width: 100px;  
+            animation: walkSheep 6s linear infinite;  
+        }  
+        @keyframes walkSheep {  
+            0% { transform: translateX(0); }  
+            50% { transform: translateX(50vw); }  
+            100% { transform: translateX(-100px); }  
+        }  
+        .text {  
+            font-size: 20px;  
+            font-weight: bold;  
+            text-anchor: middle;  
+            fill: black;  
+            dominant-baseline: middle; /* 垂直居中 */  
+            text-align: center;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <svg class="sun" viewBox="0 0 64 64">  
+        <circle cx="32" cy="32" r="15" fill="yellow" />  
+        <circle cx="27" cy="27" r="2" fill="black" /> <!-- 左眼 -->  
+        <circle cx="37" cy="27" r="2" fill="black" /> <!-- 右眼 -->  
+        <path d="M27 35 Q32 40 37 35" stroke="black" stroke-width="2" fill="none" /> <!-- 微笑 -->  
+        <line x1="32" y1="0" x2="32" y2="10" stroke="yellow" stroke-width="4" /> <!-- 上面光线 -->  
+        <line x1="32" y1="54" x2="32" y2="64" stroke="yellow" stroke-width="4" /> <!-- 下面光线 -->  
+        <line x1="10" y1="32" x2="0" y2="32" stroke="yellow" stroke-width="4" /> <!-- 左边光线 -->  
+        <line x1="54" y1="32" x2="64" y2="32" stroke="yellow" stroke-width="4" /> <!-- 右边光线 -->  
+        <line x1="45" y1="45" x2="54" y2="54" stroke="yellow" stroke-width="4" /> <!-- 右下光线 -->  
+        <line x1="10" y1="10" x2="0" y2="0" stroke="yellow" stroke-width="4" /> <!-- 左上光线 -->  
+        <line x1="45" y1="10" x2="54" y2="0" stroke="yellow" stroke-width="4" /> <!-- 右上光线 -->  
+        <line x1="10" y1="54" x2="0" y2="64" stroke="yellow" stroke-width="4" /> <!-- 左下光线 -->  
+    </svg>  
+
+    <svg class="cloud" width="200" height="100" viewBox="0 0 200 100" style="top: 20%; animation-duration: 30s;" onclick="goToPage('food.html');">  
+        <path d="M60 70c-20 0-36-15-36-36 0-18 15-33 33-33 6 0 12 2 17 5 6-5 12-5 18-5 18 0 33 15 33 33 0 20-15 36-36 36H60z" fill="white" />  
+        <text x="100" y="50" class="text">美食</text>  
+    </svg>  
+
+    <svg class="cloud" width="180" height="90" viewBox="0 0 180 90" style="top: 30%; animation-duration: 25s;" onclick="goToPage('accommodation.html');">  
+        <path d="M50 60c-15 0-27-12-27-27 0-13 11-24 24-24 5 0 10 2 14 4 5-3 10-4 15-4 13 0 24 11 24 24 0 15-12 27-27 27H50z" fill="white" />  
+        <text x="90" y="45" class="text">住宿</text>  
+    </svg>  
+    
+    <svg class="cloud" width="160" height="80" viewBox="0 0 160 80" style="top: 40%; animation-duration: 35s;">  
+        <path d="M80 80c-25 0-45-20-45-45 0-22 18-40 40-40 8 0 15 3 21 7 8-6 16-7 24-7 22 0 40 18 40 40 0 25-20 45-45 45H80z" fill="white" />  
+        <text x="80" y="40" class="text">出行</text>  
+    </svg>  
+
+    <div class="grass"></div>  
+    <img src="https://wimg.588ku.com/gif/21/11/09/26a37e3d88dc3ef56883998f62e0124d.gif" alt="Cow" class="animal cow" style="left: 5%;" />   
+    <img src="https://wimg.588ku.com/gif/21/11/09/26a37e3d88dc3ef56883998f62e0124d.gif" alt="Cow" class="animal cow" style="right: 50%;" />  	  
+    <img src="https://wimg.588ku.com/gif/21/10/26/de1ecdc51831f42a9ce341887bcb8549.gif" alt="Sheep" class="animal sheep" style="left: 10%;" />  
+    <img src="https://wimg.588ku.com/gif/21/10/26/de1ecdc51831f42a9ce341887bcb8549.gif" alt="Sheep" class="animal sheep" style="left: 50%;" />  
+
+    <audio id="background-music" loop>  
+        <source src="https://www.example.com/cheerful-music.mp3" type="audio/mpeg">  
+        您的浏览器不支持音频元素。  
+    </audio>  
+    
+    <script>  
+        document.getElementById('background-music').play();  
+        function goToPage(page) {  
+            window.location.href = page; // 重定向到指定页面  
+        }  
+    </script>  
+</body>  
+</html>  
