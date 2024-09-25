@@ -1,0 +1,122 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>宁夏中卫美食推荐</title>  
+    <style>  
+        /* 基本样式 */  
+        .container {  
+            width: 80%;  
+            margin: 0 auto;  
+            text-align: center;  
+        }  
+        #map {  
+            width: 100%;  
+            height: 400px;  
+            margin-top: 20px;  
+        }  
+    </style>  
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=YOUR_API_KEY"></script> <!-- 替换为您的百度地图API密钥 -->  
+    <script>  
+        let map, marker;  
+        const locations = {  
+            "中卫": {  
+                "牛肉面": {name: "中卫牛肉面馆", lat: 37.5090, lng: 105.1930},  
+                "羊肉串": {name: "中卫羊肉串摊", lat: 37.5110, lng: 105.1810},  
+                "凉皮": {name: "中卫凉皮摊", lat: 37.5100, lng: 105.1820},  
+                "手抓羊肉": {name: "中卫手抓羊肉", lat: 37.5120, lng: 105.1900},  
+                "炸糕": {name: "小吃一条街炸糕摊", lat: 37.5110, lng: 105.1810}  
+            },  
+            "沙坡头": {  
+                "牛肉面": {name: "沙坡头牛肉面馆", lat: 37.5130, lng: 105.2050},  
+                "羊肉串": {name: "沙坡头烧烤", lat: 37.5115, lng: 105.2000},  
+                "凉皮": {name: "沙坡头凉皮店", lat: 37.5100, lng: 105.2100},  
+                "手抓羊肉": {name: "沙坡头手抓羊肉", lat: 37.5170, lng: 105.2020},  
+                "炸糕": {name: "沙坡头小吃摊", lat: 37.5150, lng: 105.2140}  
+            },  
+            "其他区域": {  
+                "牛肉面": {name: "附近的牛肉面馆", lat: 37.5000, lng: 105.1800},  
+                "羊肉串": {name: "附近的羊肉串", lat: 37.5000, lng: 105.1800},  
+                "凉皮": {name: "附近的凉皮店", lat: 37.5000, lng: 105.1800},  
+                "手抓羊肉": {name: "附近的手抓羊肉", lat: 37.5000, lng: 105.1800},  
+                "炸糕": {name: "附近的炸糕摊", lat: 37.5000, lng: 105.1800}  
+            }  
+        };  
+
+        function initMap() {  
+            map = new BMap.Map("map");  
+            const centerPoint = new BMap.Point(105.1823, 37.5079);  
+            map.centerAndZoom(centerPoint, 12);  
+            map.enableScrollWheelZoom(true);  
+        }  
+
+        function showRecommendation() {  
+            const location = document.getElementById('location').value;  
+            const foodType = document.getElementById('food-type').value;  
+            const selectedLocation = locations[location][foodType];  
+
+            if (selectedLocation) {  
+                document.getElementById('recommendation').innerText = selectedLocation.name;  
+
+                clearMarker(); // 清除旧标记  
+
+                const point = new BMap.Point(selectedLocation.lng, selectedLocation.lat);  
+                marker = new BMap.Marker(point);  
+                map.addOverlay(marker);  
+                map.panTo(point);  
+
+                const infoWindow = new BMap.InfoWindow(selectedLocation.name);  
+                marker.openInfoWindow(infoWindow);  
+            } else {  
+                console.error("没有找到推荐的餐厅，位置或食物类型可能无效！");  
+                document.getElementById('recommendation').innerText = '没有推荐信息';  
+            }  
+        }  
+
+        function clearMarker() {  
+            if (marker) {  
+                map.removeOverlay(marker);  
+                marker = null;  
+            }  
+        }  
+
+        document.addEventListener('DOMContentLoaded', function() {  
+            initMap();  
+            document.getElementById('recommend-btn').onclick = function() {  
+                console.log("获取推荐按钮被点击");  
+                showRecommendation();  
+            };  
+        });  
+    </script>  
+</head>  
+<body>  
+
+<div class="container">  
+    <h1>宁夏中卫美食推荐</h1>  
+    
+    <label for="location">选择您的位置:</label>  
+    <select id="location">  
+        <option value="中卫">中卫</option>  
+        <option value="沙坡头">沙坡头</option>  
+        <option value="其他区域">其他区域</option>  
+    </select>  
+
+    <label for="food-type">选择想吃的食物:</label>  
+    <select id="food-type">  
+        <option value="牛肉面">牛肉面</option>  
+        <option value="羊肉串">羊肉串</option>  
+        <option value="凉皮">凉皮</option>  
+        <option value="手抓羊肉">手抓羊肉</option>  
+        <option value="炸糕">炸糕</option>  
+    </select>  
+
+    <button id="recommend-btn">获取推荐</button>  
+
+    <div id="recommendation"></div>  
+
+    <div id="map"></div>  
+</div>  
+
+</body>  
+</html>  
